@@ -80,6 +80,16 @@ GROUP BY `접수시간_시`;
 
 3.
 
+SELECT
+	LEFT(`접수시간`,2) AS `접수시간_시`,
+	`수리여부`,
+	CASE WHEN `수리여부`="0" THEN ELSE 0 END AS `수리완료`
+FROM `as_test`;
 
-
+SELECT
+	LEFT(`접수시간`,2) AS `접수시간_시`,
+	AVG(CASE WHEN `수리여부`="O" THEN  ELSE 0 END) AS
+`수리완료_비율`
+FROM `as_test`
+GROUP BY `접수시간_시`;
 
