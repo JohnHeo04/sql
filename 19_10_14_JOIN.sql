@@ -45,63 +45,30 @@ INSERT INTO employee VALUES('Williams', NULL);
 
 
 
+SELECT
+*
+FROM `employee` LEFT JOIN `department` 
+ON `employee`. `Department` = `department`.`DepartmentID`;
 
-
-
-# LOCAL 을 빼니까 작동함.;;;
-# 지금까지 웬 뻘짓...ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
-
-CREATE TABLE aisles(
-	aisle_id INT UNSIGNED,
-	aisle VARCHAR(255)
-);
-LOAD DATA INFILE "C:/Users/PC38233/aisles.csv"
-	INTO TABLE `aisles` CHARACTER SET "utf8"
-	FIELDS TERMINATED BY ","
-	LINES TERMINATED BY '\n'
-	IGNORE 1 LINES;
+# 코드 줄이기
+SELECT
+	A.*
+FROM `employee` A LEFT JOIN `department` B 
+ON A. `Department` = B.`DepartmentID`;
 	
-	
-# Error
-CREATE TABLE departments(
-	department_id INT UNSIGNED,
-	department VARCHAR(255)
-);
-LOAD DATA INFILE "C:/Users/PC38233/departments.csv"
-	INTO TABLE `departments` CHARACTER SET "utf8"
-	FIELDS terminate BY "," OPTIONALLY ENCLOSED BY
-	'\"' ESCAPED BY "\\"
-	LINES TERMINATED BY '\n'
-	IGNORE 1 LINES ;
-# Again
-CREATE TABLE departments(
-	department_id INT UNSIGNED,
-	department VARCHAR(255)
-);
-LOAD DATA INFILE "C:/Users/PC38233/departments.csv"
-	INTO TABLE `departments` CHARACTER SET "utf8"
-	FIELDS TERMINATED BY ","
-	LINES TERMINATED BY '\n'
-	IGNORE 1 LINES;
+# 코드 더! 줄이기/ `USING`
+# ex) USING(`___`,`___`,`___`)
+SELECT
+*
+FROM `employee` LEFT JOIN `department` 
+USING (`DepartmentID`);
 
-
-
-CREATE TABLE order_products_train(
-		order_products_train_id INT UNSIGNED,
-		order_products_train VARCHAR(255)
-);
-LOAD DATA INFILE "C:/Users/PC38233/order_products_train.csv"
-	INTO TABLE `order_products_train` CHARACTER SET "utf8"
-	FIELDS TERMINATED BY ","
-	LINES TERMINATED BY '\n'
-	IGNORE 1 LINES;
-
-
-C:/Users/PC38233
-
-
-
-
+# 또 더 줄이기!
+SELECT
+	*
+FROM `employee` A LEFT JOIN `department` B 
+ON A. `Department` = B.`DepartmentID`
+WHERE B. `DepartmentID` IS NOT NULL;
 
 
 
