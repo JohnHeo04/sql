@@ -63,4 +63,45 @@ SELECT * FROM `subquery_t2` WHERE  (`id`, `subject`)=(SELECT `id`,
 `subject` FROM `subquery_t1` WHERE `subject` ="b");
 
 
+/* 4. [table] `subquery_t1`의 `id`별 평균 `score`의 평균을 계산 */
+SELECT `id`, AVG(`score`) AS `score_avg`
+FROM `subquery_t1` GROUP BY `id`;
+
+CREATE TABLE `subquery_t1_avg`
+SELECT `id`, AVG(`score`) AS `score_avg`
+FROM `subquery_t1` GROUP BY `id`;
+
+CREATE TABLE `subquery_t1_avg`
+SELECT `id`, AVG(`score`) AS `score_avg`
+FROM `subquery_t1` GROUP BY `id`;
+SELECT AVG(`socre_avg`) FROM `subquery_t1_avg`;
+
+
+SELECT AVG(`socre_avg`)
+FROM (SELECT `id`, AVG(`score`) AS `score_avg`
+FROM `subquery_t1` GROUP BY `id`) AS A;
+
+
+
+/* subquery 최적화 */
+/* `subquery_t1`에 있는 (또는 없는) `id`를 `subquery_t2`에서 선택 */
+SELECT DISTINCT t2.*
+FROM `subquery_t2` AS t2
+LEFT JOIN `subquery_t1` AS t1 ON t2.`id`=t1.`id`
+WHERE t1.`id` IS NOT NULL; # Null이 지워짐.
+
+
+
+
+### 3.[single row] `subquery_t1`의 `subject`="b"인 조건을 만족하는 `id`,
+### `subject`를 `subquery_t2`에서 선택
+SELECT t2.*
+FROM `subquery_t2` t2
+LEFT JOIN `subquery_t1` t1 ON t2.`id`=t1.`id` AND t2.`subject`=t1.`subject`
+WHERE t1.`subject`="b";
+
+
+
+
+
 
